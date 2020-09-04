@@ -4,7 +4,7 @@ import unittest
 
 
 from app import create_app
-from app.forms import TodoForm
+from app.forms import TodoForm, DeleteTodoForm
 from app.firestore_service import get_users, get_todos, put_todo, delete_todo
 
 
@@ -46,12 +46,14 @@ def hello():
     user_ip = session.get('user_ip')
     username = current_user.id
     todo_form = TodoForm()
+    delete_form = DeleteTodoForm()
 
     context = {
         'user_ip': user_ip,
         'todos': get_todos(user_id=username),
         'username': username,
-        'todo_form': todo_form
+        'todo_form': todo_form,
+        'delete_form': delete_form,
     }
 
     if todo_form.validate_on_submit():
@@ -69,7 +71,7 @@ def delete(todo_id):
     user_id = current_user.id
     delete_todo(user_id=user_id, todo_id=todo_id)
 
-    return redirect('hello')
+    return redirect(url_for('hello'))
 
 
 
