@@ -19,6 +19,11 @@
         </a>
     {% endif %}
 
+    <div class="container">
+        <h2>Crear una nueva tarea</h2>
+        {{ wtf.quick_form(todo_form) }}
+    </div>
+
     <ul>
         {% for todo in todos %}
             {{ macros.render_todo(todo) }}
