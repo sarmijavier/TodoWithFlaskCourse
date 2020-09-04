@@ -19,3 +19,9 @@ def get_user(user_id):
 
 def get_todos(user_id):
     return db.collection(u'users').document(user_id).collection(u'todos').get()
+
+
+def delete_todo(user_id, todo_id):
+    todo_ref = db.collection(f'users/{user_id}/todos/{todo_id}')
+    todo_ref.delete()
+    #todo_ref = db.collection(u'users').document(user_id).collection('todos').document(todo_id)

@@ -5,7 +5,7 @@ import unittest
 
 from app import create_app
 from app.forms import LoginForm
-from app.firestore_service import get_users, get_todos
+from app.firestore_service import get_users, get_todos, delete_todo
 
 
 app = create_app()
@@ -52,6 +52,15 @@ def hello():
     }
 
     return render_template('hello.html', **context)
+
+
+
+@app.route('/todos/delete/<todo_id>', methods=['POST'])
+def delete(todo_id):
+    user_id = current_user.id
+    delete_todo(user_id=user_id, todo_id=todo_id)
+
+    return redirect('hello')
 
 
 
