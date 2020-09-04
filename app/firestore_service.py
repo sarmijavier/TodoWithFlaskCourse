@@ -21,6 +21,15 @@ def get_todos(user_id):
     return db.collection(u'users').document(user_id).collection(u'todos').get()
 
 
+def user_put(user_data):
+    user_ref = db.collection(u'users').document(user_data.username)
+    user_ref.set({'password': user_data.password})
+
+
+def put_todo(user_id, description):
+    todos_collection_ref = db.collection(u'users').document(user_id).collection('todos')
+    todos_collection_ref.add({'description': description})
+
 def delete_todo(user_id, todo_id):
     todo_ref = db.collection(f'users/{user_id}/todos/{todo_id}')
     todo_ref.delete()
