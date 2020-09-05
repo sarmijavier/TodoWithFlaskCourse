@@ -4,7 +4,7 @@ from flask import render_template, redirect, flash, url_for, session
 from app.firestore_service import get_user, user_put
 from app.models import UserModel, UserData
 from flask_login import login_user, current_user, login_required, logout_user
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -26,8 +26,9 @@ def login():
         
         if user_doc.to_dict() is not None:
             password_from_db  = user_doc.to_dict()['password']
-
-            if password == password_from_db:
+            print('-------------------------------------------------')
+            print(check_password_hash(password, password_from_db))
+            if check_password_hash(password_from_db, password ):     
                 user_data = UserData(username, password)
                 user = UserModel(user_data)
 
