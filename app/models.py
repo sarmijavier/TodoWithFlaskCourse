@@ -7,7 +7,7 @@ class UserData:
         self.password = password
 
 
-class UserModel(UserMixin):
+class UserModel(UserMixin): #es como django un modelo ya  hecho no hay que hacer nada
     def __init__(self, user_data):
         """ 
         :param user_data: UserData
